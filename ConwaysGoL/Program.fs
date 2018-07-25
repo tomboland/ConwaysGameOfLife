@@ -18,9 +18,9 @@
        
     let testGrid = { sizeX = 4;
                      sizeY = 4;
-                     cells = array2D [| [Cell.Unpopulated; Cell.Unpopulated; Cell.Unpopulated; Cell.Unpopulated]
-                                        [Cell.Unpopulated; Cell.Populated; Cell.Populated; Cell.Populated]
-                                        [Cell.Unpopulated; Cell.Populated; Cell.Populated; Cell.Unpopulated]
+                     cells = array2D [| [Cell.Unpopulated; Cell.Unpopulated; Cell.Unpopulated; Cell.Populated]
+                                        [Cell.Populated; Cell.Populated; Cell.Populated; Cell.Populated]
+                                        [Cell.Populated; Cell.Populated; Cell.Populated; Cell.Populated]
                                         [Cell.Unpopulated; Cell.Populated; Cell.Unpopulated; Cell.Unpopulated] |];
                    }
 
@@ -29,6 +29,7 @@
             match subList with
             | head::tail when head = cell -> tail
             | head::tail -> head::(removeOriginator cell tail)
+            | _ -> failwith "Why is there an empty list here?"
 
         let minX = if x - 1 < 0 then 0 else x - 1
         let minY = if y - 1 < 0 then 0 else y - 1
@@ -98,6 +99,7 @@ let main argv =
     |> ConwaysGameOfLife.GameOfLifeIteration
     |> ConwaysGameOfLife.PrintGrid 
     |> ConwaysGameOfLife.GameOfLifeIteration
-    |> ConwaysGameOfLife.PrintGrid 
+    |> ConwaysGameOfLife.PrintGrid
+    |> ignore
     0 // return an integer exit code
 
