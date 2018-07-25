@@ -6,7 +6,7 @@
         | Populated
         override this.ToString() = 
             match this with
-            | Unpopulated -> "  "
+            | Unpopulated -> " 0 "
             | Populated -> " X "
         member this.AsString = this.ToString
     
@@ -47,19 +47,12 @@
         let neighbours = CellNeighbours grid x y
         let populated =
             neighbours
-            |> List.filter (fun cell ->
-                match cell with
-                | Populated -> true
-                | Unpopulated -> false)
+            |> List.filter (fun cell -> cell = Populated)
             |> List.length
         let unpopulated =
             neighbours
-            |> List.filter (fun cell ->
-                match cell with
-                | Unpopulated -> true
-                | Populated -> false)
+            |> List.filter (fun cell -> cell = Unpopulated)
             |> List.length
- 
         match (currentState, populated, unpopulated) with
         | (Populated, _, x) when x < 2 -> Unpopulated
         | (Populated, x, _) when x = 2 || x = 3 -> Populated
